@@ -45,40 +45,40 @@ public class MainActivity extends AppCompatActivity {
         aBtn.setOnClickListener(
                 (view)->
                 {
-                    //sendInput("a");
-                    Log.d("tag", "a");
+                    sendMessage("1");
+                    Log.d("tag", "1");
                 }
         );
 
         bBtn.setOnClickListener(
                 (view)->
                 {
-                    //sendInput("b");
-                    Log.d("tag", "b");
+                    sendMessage("2");
+                    Log.d("tag", "2");
                 }
         );
 
         leftBtn.setOnClickListener(
                 (view)->
                 {
-                    //sendInput("l");
-                    Log.d("tag", "l");
+                    sendMessage("3");
+                    Log.d("tag", "3");
                 }
         );
 
         rightBtn.setOnClickListener(
                 (view)->
                 {
-                    //sendInput("r");
-                    Log.d("tag", "r");
+                    sendMessage("4");
+                    Log.d("tag", "4");
                 }
         );
 
         startBtn.setOnClickListener(
                 (view)->
                 {
-                    //sendInput("s");
-                    Log.d("tag", "s");
+                    sendMessage("5");
+                    Log.d("tag", "5");
                 }
         );
     }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 () ->
                 {
                     try {
-                        socket = new Socket("192.168.1.9", 4000);
+                        socket = new Socket("192.168.1.69", 4000);
 
                         InputStream is = socket.getInputStream();
                         InputStreamReader isr = new InputStreamReader(is);
@@ -113,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
         ).start();
     }
 
-    public void sendInput(String msg)
+    public void sendMessage(String msg)
     {
         new Thread(
                 ()->
                 {
                     try {
-                        writer.write(msg);
+                        writer.write(msg + "\n");
                         writer.flush();
                     } catch (IOException e) {
                         e.printStackTrace();
