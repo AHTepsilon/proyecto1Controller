@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,7 +21,7 @@ import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button aBtn, bBtn, startBtn, leftBtn, rightBtn;
+    Button aBtn, bBtn, startBtn, leftBtn, rightBtn, debugButton;
 
     BufferedWriter writer;
     BufferedReader reader;
@@ -39,8 +41,16 @@ public class MainActivity extends AppCompatActivity {
         startBtn = findViewById(R.id.startButton);
         leftBtn = findViewById(R.id.leftArrowButton);
         rightBtn = findViewById(R.id.rightArrowButton);
+        debugButton = findViewById(R.id.button);
 
         initClient();
+
+        debugButton.setOnClickListener(
+                (view) ->
+                {
+                    sendInput("a");
+                }
+        );
 
         aBtn.setOnClickListener(
                 (view)->
@@ -89,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 () ->
                 {
                     try {
+                        System.out.println("Connecting to server...");
                         socket = new Socket("192.168.1.69", 4000);
+                        System.out.println("Established connection to server");
 
                         InputStream is = socket.getInputStream();
                         InputStreamReader isr = new InputStreamReader(is);
@@ -116,16 +128,31 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage(String msg)
     {
         new Thread(
-                ()->
+                () ->
                 {
                     try {
                         writer.write(msg + "\n");
                         writer.flush();
                     } catch (IOException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
-                }
-        ).start();
+                }).start();
+    }
+
+    public void sendInput(String mess)
+    {
+        new Thread(
+                () ->
+                {
+                    try {
+                        writer.write(mess + "\n");
+                        writer.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }).start();
     }
 }
