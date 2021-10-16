@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         rightBtn = findViewById(R.id.rightArrowButton);
 
         TCPconnect = TCPSingleton.getInstance();
+        TCPconnect.setObserver(this);
 
         //initClient();
 
@@ -86,6 +88,16 @@ public class MainActivity extends AppCompatActivity {
                 {
                     TCPconnect.sendMessage("5");
                     Log.d("tag", "5");
+                }
+        );
+    }
+
+    public void whenTheMessageArrives(String message)
+    {
+        runOnUiThread(
+                ()->
+                {
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 }
         );
     }

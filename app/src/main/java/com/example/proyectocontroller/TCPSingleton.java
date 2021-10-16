@@ -17,6 +17,13 @@ public class TCPSingleton extends Thread
     BufferedWriter writer;
     BufferedReader reader;
 
+    private MainActivity mainActivity;
+
+    public void setObserver(MainActivity mainActivity)
+    {
+        this.mainActivity = mainActivity;
+    }
+
     private static TCPSingleton uniqueInstance;
 
     public static TCPSingleton getInstance()
@@ -51,6 +58,9 @@ public class TCPSingleton extends Thread
                 System.out.println("Awaiting input...");
                 String line = reader.readLine();
                 System.out.println("Input received..." + line);
+
+                mainActivity.whenTheMessageArrives(line);
+
             }
 
         } catch (IOException e) {
