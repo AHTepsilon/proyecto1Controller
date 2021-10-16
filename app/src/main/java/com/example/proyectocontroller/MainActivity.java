@@ -23,10 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
     Button aBtn, bBtn, startBtn, leftBtn, rightBtn, debugButton;
 
-    BufferedWriter writer;
+    Connection TCP;
+
+    /*BufferedWriter writer;
     BufferedReader reader;
 
-    private Socket socket;
+    private Socket socket;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +45,23 @@ public class MainActivity extends AppCompatActivity {
         rightBtn = findViewById(R.id.rightArrowButton);
         debugButton = findViewById(R.id.button);
 
-        initClient();
+        TCP = new Connection();
+
+        TCP.initClient();
+
+        //initClient();
 
         debugButton.setOnClickListener(
                 (view) ->
                 {
-                    sendInput("a");
+                    TCP.sendMessage("a");
                 }
         );
 
         aBtn.setOnClickListener(
                 (view)->
                 {
-                    sendMessage("1");
+                    TCP.sendMessage("1");
                     Log.d("tag", "1");
                 }
         );
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         bBtn.setOnClickListener(
                 (view)->
                 {
-                    sendMessage("2");
+                    TCP.sendMessage("2");
                     Log.d("tag", "2");
                 }
         );
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         leftBtn.setOnClickListener(
                 (view)->
                 {
-                    sendMessage("3");
+                    TCP.sendMessage("3");
                     Log.d("tag", "3");
                 }
         );
@@ -79,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         rightBtn.setOnClickListener(
                 (view)->
                 {
-                    sendMessage("4");
+                    TCP.sendMessage("4");
                     Log.d("tag", "4");
                 }
         );
@@ -87,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
         startBtn.setOnClickListener(
                 (view)->
                 {
-                    sendMessage("5");
+                    TCP.sendMessage("5");
                     Log.d("tag", "5");
                 }
         );
     }
 
-    public void initClient()
+    /*public void initClient()
     {
         new Thread(
                 () ->
@@ -125,34 +131,19 @@ public class MainActivity extends AppCompatActivity {
         ).start();
     }
 
-    public void sendMessage(String msg)
-    {
+    public void sendMessage(String msg) {
         new Thread(
                 () ->
                 {
                     try {
                         writer.write(msg + "\n");
                         writer.flush();
+                        Log.d(">>>", "message sent: " + msg);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
                 }).start();
-    }
-
-    public void sendInput(String mess)
-    {
-        new Thread(
-                () ->
-                {
-                    try {
-                        writer.write(mess + "\n");
-                        writer.flush();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }).start();
-    }
+    }*/
 }
