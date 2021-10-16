@@ -2,12 +2,16 @@ package com.example.proyectocontroller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
+import android.os.Vibrator;
 
 import com.google.gson.Gson;
 
@@ -23,6 +27,7 @@ import java.net.Socket;
 public class MainActivity extends AppCompatActivity {
 
     Button aBtn, bBtn, startBtn, leftBtn, rightBtn;
+    Vibrator v;
 
     //Connection TCP;
 
@@ -49,11 +54,16 @@ public class MainActivity extends AppCompatActivity {
         TCPconnect = TCPSingleton.getInstance();
         TCPconnect.setObserver(this);
 
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
         //initClient();
 
         aBtn.setOnClickListener(
                 (view)->
                 {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
                     TCPconnect.sendMessage("1");
                     Log.d("tag", "1");
                 }
@@ -62,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         bBtn.setOnClickListener(
                 (view)->
                 {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
                     TCPconnect.sendMessage("2");
                     Log.d("tag", "2");
                 }
@@ -70,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         leftBtn.setOnClickListener(
                 (view)->
                 {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
                     TCPconnect.sendMessage("3");
                     Log.d("tag", "3");
                 }
@@ -78,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         rightBtn.setOnClickListener(
                 (view)->
                 {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
                     TCPconnect.sendMessage("4");
                     Log.d("tag", "4");
                 }
@@ -86,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
         startBtn.setOnClickListener(
                 (view)->
                 {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
                     TCPconnect.sendMessage("5");
                     Log.d("tag", "5");
                 }
