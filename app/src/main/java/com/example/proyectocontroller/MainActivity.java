@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     Button aBtn, bBtn, startBtn, leftBtn, rightBtn, debugButton;
 
-    Connection TCP;
+    //Connection TCP;
 
+    TCPSingleton TCPconnect;
     /*BufferedWriter writer;
     BufferedReader reader;
 
@@ -45,23 +46,21 @@ public class MainActivity extends AppCompatActivity {
         rightBtn = findViewById(R.id.rightArrowButton);
         debugButton = findViewById(R.id.button);
 
-        TCP = new Connection();
-
-        TCP.initClient();
+        TCPconnect = TCPSingleton.getInstance();
 
         //initClient();
 
         debugButton.setOnClickListener(
                 (view) ->
                 {
-                    TCP.sendMessage("a");
+                    TCPconnect.sendMessage("a");
                 }
         );
 
         aBtn.setOnClickListener(
                 (view)->
                 {
-                    TCP.sendMessage("1");
+                    TCPconnect.sendMessage("1");
                     Log.d("tag", "1");
                 }
         );
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         bBtn.setOnClickListener(
                 (view)->
                 {
-                    TCP.sendMessage("2");
+                    TCPconnect.sendMessage("2");
                     Log.d("tag", "2");
                 }
         );
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         leftBtn.setOnClickListener(
                 (view)->
                 {
-                    TCP.sendMessage("3");
+                    TCPconnect.sendMessage("3");
                     Log.d("tag", "3");
                 }
         );
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         rightBtn.setOnClickListener(
                 (view)->
                 {
-                    TCP.sendMessage("4");
+                    TCPconnect.sendMessage("4");
                     Log.d("tag", "4");
                 }
         );
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         startBtn.setOnClickListener(
                 (view)->
                 {
-                    TCP.sendMessage("5");
+                    TCPconnect.sendMessage("5");
                     Log.d("tag", "5");
                 }
         );

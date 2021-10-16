@@ -27,34 +27,7 @@ public class Connection
 
     public void initClient()
     {
-        new Thread(
-                () ->
-                {
-                    try {
-                        System.out.println("Connecting to server...");
-                        socket = new Socket("192.168.1.69", 4000);
-                        System.out.println("Established connection to server");
 
-                        InputStream is = socket.getInputStream();
-                        InputStreamReader isr = new InputStreamReader(is);
-                        reader = new BufferedReader(isr);
-
-                        OutputStream os = socket.getOutputStream();
-                        OutputStreamWriter osr = new OutputStreamWriter(os);
-                        writer = new BufferedWriter(osr);
-
-                        while(true)
-                        {
-                            System.out.println("Awaiting input...");
-                            String line = reader.readLine();
-                            System.out.println("Input received..." + line);
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-        ).start();
     }
 
     public void sendMessage(String msg)
