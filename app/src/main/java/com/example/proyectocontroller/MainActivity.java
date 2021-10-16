@@ -21,7 +21,7 @@ import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button aBtn, bBtn, startBtn, leftBtn, rightBtn, debugButton;
+    Button aBtn, bBtn, startBtn, leftBtn, rightBtn;
 
     //Connection TCP;
 
@@ -44,18 +44,10 @@ public class MainActivity extends AppCompatActivity {
         startBtn = findViewById(R.id.startButton);
         leftBtn = findViewById(R.id.leftArrowButton);
         rightBtn = findViewById(R.id.rightArrowButton);
-        debugButton = findViewById(R.id.button);
 
         TCPconnect = TCPSingleton.getInstance();
 
         //initClient();
-
-        debugButton.setOnClickListener(
-                (view) ->
-                {
-                    TCPconnect.sendMessage("a");
-                }
-        );
 
         aBtn.setOnClickListener(
                 (view)->
