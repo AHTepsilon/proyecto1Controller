@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
@@ -86,21 +88,56 @@ public class MainActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
                     }
-                    TCPconnect.sendMessage("3");
-                    Log.d("tag", "3");
                 }
         );
 
+
+        leftBtn.setOnTouchListener(new View.OnTouchListener()
+                                   {
+                                       @Override
+                                       public boolean onTouch(View view, MotionEvent motionEvent)
+                                       {
+                                           switch(motionEvent.getAction())
+                                           {
+                                               case MotionEvent.ACTION_DOWN:
+                                                   TCPconnect.sendMessage("3");
+                                                   break;
+                                               case MotionEvent.ACTION_UP:
+                                                   TCPconnect.sendMessage("0");
+                                                   break;
+                                           }
+                                           return true;
+                                       }
+
+                                   });
+
         rightBtn.setOnClickListener(
-                (view)->
+                (view) ->
                 {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         v.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE));
                     }
-                    TCPconnect.sendMessage("4");
-                    Log.d("tag", "4");
+                });
+
+        rightBtn.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent)
+            {
+                switch(motionEvent.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        TCPconnect.sendMessage("4");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        TCPconnect.sendMessage("0");
+                        break;
                 }
-        );
+                return true;
+            }
+
+        });
+
 
         startBtn.setOnClickListener(
                 (view)->
